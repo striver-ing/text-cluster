@@ -153,7 +153,7 @@ if __name__ == '__main__':
 发展战略对接得到有力推进。习近平主席此访推动中哈在共建“一带一路”和国际产能合作中发挥好示范作用。习近平主席强调中方将继续推进“一带一路”建设同各成员国发展战略和其他地区一体化倡议对接合作，上合组织将为此发挥平台作用。
 “一带一路”倡议得到有力支持。中哈两国发表的《联合声明》及上合组织发表的《阿斯塔纳宣言》等文件均充分肯定“一带一路”的积极意义，高度评价并支持落实高峰论坛成果。各国领导人表示愿继续积极响应和参与“一带一路”建设。通过习近平主席这次访问，我们再次深刻感受到，“一带一路”倡议已成为广受欢迎的国际公共产品，使各国抓到合作机遇，看到发展希望。国际上认同“一带一路”的共识越来越多，预期越来越乐观。
     '''
-    text =  '毛羽'
+    text =  'The company reported close to a 2 percent rise in operating profit for the second quarter, when compared with the same period last year.'
     cut_text = CutText()
     # # cut_text.set_stop_words('stop_word.txt')
     # import time

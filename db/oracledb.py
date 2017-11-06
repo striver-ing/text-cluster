@@ -8,6 +8,7 @@ Created on 2016-11-16 16:25
 '''
 import sys
 sys.path.append('../')
+import init
 import cx_Oracle
 import utils.tools as tools
 from utils.log import log
@@ -199,3 +200,13 @@ if __name__ == '__main__':
 
 #     delete from tab_iopm_article_info where id  not in (
 # select min(id) from TAB_IOPM_ARTICLE_INFO t group by title ,t.website_name)
+
+
+    sql = 'update tab_iopm_hot_info set hot = 1 where id = 9999999999999'
+    print(db.update(sql))
+
+    sql = 'select id from tab_iopm_hot_info where id = %s'%9999999999999
+    if db.find(sql):
+        print(1)
+    else:
+        print(2)

@@ -22,7 +22,7 @@ def main():
           from (select rownum r, id, title
                   from tab_iopm_article_info
                  where rownum >= 1)
-         where r <= 100
+         where r <= 100000
     '''
     articles = db.find(sql)
 
@@ -40,11 +40,11 @@ def main():
             hot_text = hot[1]
 
             similarity = compare_text(hot_text, article_text)
-            print('''
-                article_text %s
-                hot_text     %s
-                similarity   %s
-                '''%(article_text, hot_text, similarity))
+            # print('''
+            #     article_text %s
+            #     hot_text     %s
+            #     similarity   %s
+            #     '''%(article_text, hot_text, similarity))
             if similarity > max_similar['similarity']:
                 max_similar['similarity'] = similarity
                 max_similar['hot_id'] = hot_id
@@ -56,7 +56,7 @@ def main():
             db.update(sql)
             sql = "update tab_iopm_hot_info set hot = hot + 1, title = '%s' where id = %s"%(max_similar['hot_title'], max_similar['hot_id'])
             db.update(sql)
-            pass
+
         else:
             sql = 'select sequence.nextval from dual'
             hot_id = db.find(sql)[0][0]

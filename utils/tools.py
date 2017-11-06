@@ -399,6 +399,10 @@ def dumps_json(json_):
 def print(object):
     pprint(object)
 
+def print_loading(object):
+    sys.stdout.write(object + "\r")
+    sys.stdout.flush()
+
 def get_json_value(json_object, key):
     '''
     @summary:
