@@ -72,8 +72,8 @@ class OracleDB(Singleton):
             else:
                 result =  self.cursor.execute(sql).fetchall()
 
-            result = self.__cover_clob_to_str(result)
             if to_json:
+                result = self.__cover_clob_to_str(result)
                 columns = [i[0] for i in self.cursor.description]
                 # print(','.join(columns))
                 result = [dict(zip(columns, r)) for r in result]
@@ -174,7 +174,7 @@ if __name__ == '__main__':
     # sql = "select t.id from TAB_IOPM_ARTICLE_INFO t where url = 'http://weibo.com/5717375748/Fg0f537Dp'"
     # print(db.find(sql))
     # sql = 'select count(*) from v$process'
-    db.set_primary_key('TAB_IOPM_ARTICLE_COMMENT_INFO')
+    # db.set_primary_key('TAB_IOPM_ARTICLE_COMMENT_INFO')
 
     # result = threading.Thread(target = db.find, args = (sql,)).start()
     # print(result)
@@ -202,11 +202,15 @@ if __name__ == '__main__':
 # select min(id) from TAB_IOPM_ARTICLE_INFO t group by title ,t.website_name)
 
 
-    sql = 'update tab_iopm_hot_info set hot = 1 where id = 9999999999999'
-    print(db.update(sql))
+    sql = '''
+        select *
+          from (select rownum r, id, title
+                  from tab_iopm_article_info
+                 where rownum <= %d )
+         where r > %d
+    '''%(1, 0 + 2)
 
-    sql = 'select id from tab_iopm_hot_info where id = %s'%9999999999999
-    if db.find(sql):
-        print(1)
-    else:
-        print(2)
+    print(sql)
+
+    articles = db.find(sql)
+    print(articles)

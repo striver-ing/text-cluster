@@ -41,6 +41,7 @@ def get_all_vector(texts):
     word_set = set()
     for text_info in texts_info:
         doc = cut_words(text_info)
+        print(doc)
         docs.append(doc)
         word_set |= set(doc) # 取并集
 
@@ -80,8 +81,8 @@ def compare_text(text1, text2):
     return similarity  # 越接近于1 越相似
 
 if __name__ == "__main__":
-    text1 = '《三生三世》上映4天票房超4亿口碑评价不佳'
-    text2 = '杜桦《三生三世桃花缘》获《三生三世》粉丝喜爱'
+    text1 = '习近平我市举行庆祝建军90周年专场音乐会'
+    text2 = '湖南省委组织部开展庆祝建军90周年系列活动'
 
     result = compare_text(text1, text2)
     print(result)
