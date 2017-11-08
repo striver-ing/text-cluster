@@ -22,7 +22,11 @@ def cut_words(text):
 
 def dist_meas(vecA, vecB):
     # return sqrt(sum(power(vecA - vecB, 2))) #la.norm(vecA-vecB) # 欧几里得距离
-    return sum(vecA * vecB) / (sqrt(sum(vecA**2)) * sqrt(sum(vecB**2))) # 余弦定理(0~1) 余弦值越接近1，就表明夹角越接近0度，也就是两个向量越相似
+    denominator = (sqrt(sum(vecA**2)) * sqrt(sum(vecB**2))) # 分母可能为零
+    if denominator:
+        return sum(vecA * vecB) / denominator # 余弦定理(0~1) 余弦值越接近1，就表明夹角越接近0度，也就是两个向量越相似
+    else:
+        return 0
 
 def get_all_vector(texts):
     '''
@@ -41,7 +45,7 @@ def get_all_vector(texts):
     word_set = set()
     for text_info in texts_info:
         doc = cut_words(text_info)
-        print(doc)
+        # print(doc)
         docs.append(doc)
         word_set |= set(doc) # 取并集
 
@@ -67,6 +71,9 @@ def compare_text(text1, text2):
     ---------
     @result: 返回文本相似度 0 ~ 1  越接近1 越相似
     '''
+    if not text1 and text2:
+        return 0
+
     texts = [
         text1,
         text2
@@ -81,7 +88,7 @@ def compare_text(text1, text2):
     return similarity  # 越接近于1 越相似
 
 if __name__ == "__main__":
-    text1 = '习近平我市举行庆祝建军90周年专场音乐会'
+    text1 = None
     text2 = '湖南省委组织部开展庆祝建军90周年系列活动'
 
     result = compare_text(text1, text2)

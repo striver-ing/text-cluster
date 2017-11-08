@@ -71,9 +71,9 @@ class OracleDB(Singleton):
                 result =  self.cursor.execute(sql).fetchone()
             else:
                 result =  self.cursor.execute(sql).fetchall()
+                result = self.__cover_clob_to_str(result)
 
             if to_json:
-                result = self.__cover_clob_to_str(result)
                 columns = [i[0] for i in self.cursor.description]
                 # print(','.join(columns))
                 result = [dict(zip(columns, r)) for r in result]
@@ -196,21 +196,3 @@ if __name__ == '__main__':
     #     sql = 'delete from tab_iopm_article_info where id = %s'%result[0]
     #     db.delete(sql)
 
-
-
-#     delete from tab_iopm_article_info where id  not in (
-# select min(id) from TAB_IOPM_ARTICLE_INFO t group by title ,t.website_name)
-
-
-    sql = '''
-        select *
-          from (select rownum r, id, title
-                  from tab_iopm_article_info
-                 where rownum <= %d )
-         where r > %d
-    '''%(1, 0 + 2)
-
-    print(sql)
-
-    articles = db.find(sql)
-    print(articles)
